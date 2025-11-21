@@ -4,7 +4,7 @@ import Testimonial from "../components/testimonial";
 import { userTestimonials } from "../constants";
 
 export default function Testimonials() {
-  const SPEED = 40; // scroll speed
+  const SPEED = 40; // scroll speed in px/s
   const x = useMotionValue(0);
 
   const items = [...userTestimonials, ...userTestimonials];
@@ -12,6 +12,7 @@ export default function Testimonials() {
   const containerRef = useRef(null);
   const [loopWidth, setLoopWidth] = useState(0);
 
+  // Measure width dynamically on mount & resize
   useLayoutEffect(() => {
     const measure = () => {
       if (containerRef.current) {
@@ -25,6 +26,7 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  // Animate motion value frame-by-frame
   useAnimationFrame((t, delta) => {
     if (!loopWidth) return;
 
@@ -47,9 +49,16 @@ export default function Testimonials() {
       </h2>
 
       <div className="relative w-full overflow-hidden">
-        <motion.div ref={containerRef} className="flex gap-6" style={{ x }}>
+        <motion.div
+          ref={containerRef}
+          className="flex gap-4 sm:gap-6"
+          style={{ x }}
+        >
           {items.map((t, i) => (
-            <div key={i} className="shrink-0 w-[250px]">
+            <div
+              key={i}
+              className="shrink-0 w-[180px] sm:w-[220px] md:w-[250px] lg:w-[300px]" // responsive widths
+            >
               <Testimonial {...t} />
             </div>
           ))}

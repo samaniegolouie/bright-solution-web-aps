@@ -39,7 +39,7 @@ export default function Testimonial({ id, name, avatar, message, rating }) {
         {renderStars(rating)}
       </div>
       <p className="italic font-extralight flex items-center text-center min-h-[150px]">
-        "{message} Lor"
+        "{message}"
       </p>
       <p className="py-5 w-full flex items-center justify-center">~ {name}</p>
     </div>
